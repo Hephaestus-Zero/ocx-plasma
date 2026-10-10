@@ -53,11 +53,18 @@ def provider_label(prov):
     return re.sub(r"[-_]+", " ", str(prov or "?")).strip().title() or "?"
 
 
+# Antigravity reports model families as "Gem"/"Cla": bare = the 5 h window,
+# "(Weekly)" = the week window (ocx src/providers/quota/antigravity.ts).
+FAMILY_ALIASES = {"Gem": "Gemini", "Cla": "Claude"}
+
+
 def window_key(label):
     """Neutral (untranslated) window key: '5h', 'week', 'month', 'day', or
     '<Family> <period>' for branded custom windows like 'Gem (Weekly)' ->
     'Gem week'. QML maps the trailing period key to a translated label."""
     label = (label or "").strip()
+    if label in FAMILY_ALIASES:
+        return f"{FAMILY_ALIASES[label]} 5h"
     m = re.match(r"^(.*?)\s*\(([^)]+)\)\s*$", label)
     par = m.group(2).lower() if m else label.lower()
     base = m.group(1).strip() if m else ""
@@ -71,6 +78,7 @@ def window_key(label):
         return label or "window"
     if not base:
         base = re.sub(r"(?i)\b(weekly|monthly|daily|week|month|day|5\s*-?\s*h)\b", "", label).strip()
+    base = FAMILY_ALIASES.get(base, base)
     return f"{base} {period}" if base else period
 
 

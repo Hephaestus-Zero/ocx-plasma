@@ -110,12 +110,14 @@ class TestWindows(unittest.TestCase):
         self.assertAlmostEqual(w["remainingPct"], 40.0)
 
     def test_custom_window_keys_are_neutral(self):
-        custom = [{"label": "Gem (Weekly)", "percent": 30, "resetAt": None},
+        custom = [{"label": "Gem", "percent": 10, "resetAt": None},
+                  {"label": "Gem (Weekly)", "percent": 30, "resetAt": None},
+                  {"label": "Cla", "percent": 0, "resetAt": None},
                   {"label": "Daily", "percent": 5, "resetAt": None}]
         a = acct(provider="google-antigravity", quota=quota(custom=custom))
         pools = ocx_pools.build_pools([a], NOW)
         names = sorted(w["name"] for w in pools[0]["windows"])
-        self.assertEqual(names, ["Gem week", "day"])
+        self.assertEqual(names, ["Claude 5h", "Gemini 5h", "Gemini week", "day"])
 
     def test_monthly(self):
         a = acct(quota=quota(monthly=(25.0, None)))

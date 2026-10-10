@@ -1,6 +1,12 @@
 # OCX Quota
 
-A KDE Plasma 6 widget that shows your remaining opencodex quota at a glance — one concentric ring per subscription pool, live in the panel.
+[![CI](https://github.com/Hephaestus-Zero/ocx-plasma/actions/workflows/ci.yml/badge.svg)](https://github.com/Hephaestus-Zero/ocx-plasma/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Hephaestus-Zero/ocx-plasma?style=flat-square)](https://github.com/Hephaestus-Zero/ocx-plasma/releases)
+![Plasma 6](https://img.shields.io/badge/KDE_Plasma-6-1d99f3?style=flat-square&logo=kde)
+![License: MIT](https://img.shields.io/badge/license-MIT-6e5aff?style=flat-square)
+
+**Every AI coding subscription's remaining quota — Claude, Codex, Gemini/Antigravity, Devin, Command Code — in your KDE Plasma panel.**
+A Plasma 6 widget for [opencodex](https://github.com/lidge-jun/opencodex) users: one concentric ring per subscription pool, all accounts of the same plan merged, resets counted down.
 
 ![OCX Quota popup](docs/screenshot-popup.png)
 ![OCX Quota panel rings](docs/screenshot-panel.png)
