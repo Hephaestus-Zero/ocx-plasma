@@ -212,6 +212,7 @@ class TestCli(unittest.TestCase):
                  mock.patch.object(ocx_pools, "collect", side_effect=RuntimeError("ocx gone")):
                 out = ocx_pools.load(60)
             self.assertTrue(out["stale"])
+            self.assertEqual(out["staleReason"], "ocx gone")
             self.assertEqual(out["pools"], snap["pools"])
 
     def test_ocx_missing_message(self):
@@ -219,6 +220,19 @@ class TestCli(unittest.TestCase):
             with self.assertRaises(RuntimeError) as ctx:
                 ocx_pools.run_ocx(["account", "list"])
             self.assertIn("npm i -g @bitkyc08/opencodex", str(ctx.exception))
+
+    def test_ocx_found_in_user_bin_without_path(self):
+        # plasmashell's PATH lacks ~/.local/bin; ocx must still resolve there.
+        with tempfile.TemporaryDirectory() as home:
+            bindir = os.path.join(home, ".local", "bin")
+            os.makedirs(bindir)
+            exe = os.path.join(bindir, "ocx")
+            with open(exe, "w") as f:
+                f.write('#!/bin/sh\necho \'{"accounts": []}\'\n')
+            os.chmod(exe, 0o755)
+            with mock.patch.dict(os.environ, {"HOME": home, "PATH": "/usr/bin:/bin"}), \
+                 mock.patch.object(ocx_pools, "OCX", ["ocx"]):
+                self.assertEqual(ocx_pools.run_ocx(["account", "list"]), {"accounts": []})
 
 
 if __name__ == "__main__":

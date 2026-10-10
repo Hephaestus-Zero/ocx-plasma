@@ -3,6 +3,14 @@
 All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Fixed
+
+- `ocx` is now found when plasmashell's PATH lacks `~/.local/bin` (and other
+  per-user npm bin dirs); the widget no longer sticks on "offline" with a stale cache
+- A stale cache now carries `staleReason`, shown in the tooltip
+
 ## [0.1.0] - 2026-10-10
 
 Initial release.

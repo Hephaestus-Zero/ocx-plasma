@@ -40,7 +40,8 @@ Item {
         PlasmaComponents.Label {
             Layout.fillWidth: true
             text: tip.applet.failure !== "" ? tip.applet.failure
-                : tip.applet.snap ? (tip.applet.snap.stale ? i18n("offline · %1", tip.applet.ageText()) : tip.applet.ageText())
+                : tip.applet.snap ? (tip.applet.snap.stale ? i18n("offline · %1", tip.applet.ageText())
+                    + (tip.applet.snap.staleReason ? "\n" + tip.applet.snap.staleReason : "") : tip.applet.ageText())
                 : i18n("loading…")
             color: tip.applet.failure !== "" ? Kirigami.Theme.negativeTextColor
                 : tip.applet.snap && tip.applet.snap.stale ? Kirigami.Theme.neutralTextColor

@@ -21,7 +21,7 @@ Environment:
 
 Requires python3 >= 3.9, standard library only.
 """
-import json, os, re, shlex, subprocess, sys, tempfile, time
+import json, os, re, shlex, shutil, subprocess, sys, tempfile, time
 
 CACHE_DIR = os.path.join(os.environ.get("XDG_CACHE_HOME") or os.path.expanduser("~/.cache"),
                          "ocx-plasma")
@@ -30,6 +30,9 @@ WARN_PCT = float(os.environ.get("OCX_WARN_PCT", "25"))
 CRIT_PCT = float(os.environ.get("OCX_CRIT_PCT", "10"))
 OCX = shlex.split(os.environ.get("OCX_CMD", "ocx"))
 INSTALL_HINT = "install opencodex: npm i -g @bitkyc08/opencodex"
+# plasmashell's PATH usually lacks the per-user dirs npm installs ocx into.
+USER_BIN_DIRS = ("~/.local/bin", "~/.npm-global/bin", "~/.bun/bin", "~/.volta/bin", "~/bin",
+                 "/usr/local/bin")
 
 PROVIDER_LABELS = {
     "anthropic": "Claude", "openai": "Codex", "google-antigravity": "Antigravity",
@@ -82,9 +85,19 @@ def window_key(label):
     return f"{base} {period}" if base else period
 
 
+def search_path():
+    """PATH plus the usual per-user bin dirs, deduplicated, original order first."""
+    dirs = [d for d in os.environ.get("PATH", "").split(os.pathsep) if d]
+    dirs += [os.path.expanduser(d) for d in USER_BIN_DIRS]
+    return os.pathsep.join(dict.fromkeys(dirs))
+
+
 def run_ocx(args, timeout=90):
+    path = search_path()
+    exe = shutil.which(OCX[0], path=path) or OCX[0]
     try:
-        out = subprocess.run([*OCX, *args], capture_output=True, text=True, timeout=timeout)
+        out = subprocess.run([exe, *OCX[1:], *args], capture_output=True, text=True, timeout=timeout,
+                             env={**os.environ, "PATH": path})
     except FileNotFoundError:
         raise RuntimeError(f"'{OCX[0]}' not found — {INSTALL_HINT}")
     except subprocess.TimeoutExpired:
@@ -231,9 +244,10 @@ def load(max_age_s):
         return cached
     try:
         return collect()
-    except Exception:
+    except Exception as e:
         if cached is not None:          # serve the stale cache, flag it for the UI
             cached["stale"] = True
+            cached["staleReason"] = str(e)
             return cached
         raise
 
@@ -248,7 +262,7 @@ def hhmm(t):
 def summary(snap):
     out = [f"ocx pools @ {hhmm(snap['generatedAt'])} (remaining %, usable/accounts)"]
     if snap.get("stale"):
-        out[0] += " [stale cache]"
+        out[0] += f" [stale cache: {snap.get('staleReason', '?')}]"
     for p in snap["pools"]:
         if p["level"] == "unknown" and not p["windows"]:
             out.append(f"- {p['label']} x{p['accounts']}: quota n/a")
