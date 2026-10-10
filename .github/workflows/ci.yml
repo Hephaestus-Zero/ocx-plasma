@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python collector tests
+        run: python3 tests/test_collector.py
+
+      - name: Lint collector
+        run: python3 -m py_compile contents/code/ocx_pools.py
+
+      # Keep the job green on runners without Plasma: lint only if qmllint exists.
+      - name: QML lint (optional)
+        run: |
+          if command -v qmllint >/dev/null 2>&1; then
+            qmllint contents/ui/*.qml contents/config/config.qml
+          else
+            echo "qmllint not available — skipping"
+          fi
+
+      # QML runtime tests need KDE Plasma/QML modules; skipped when unavailable.
+      - name: QML tests (optional)
+        run: |
+          if command -v qmltestrunner >/dev/null 2>&1; then
+            for t in tests/tst_*.qml; do
+              QT_QPA_PLATFORM=offscreen qmltestrunner -input "$t"
+            done
+          else
+            echo "qmltestrunner not available — skipping"
+          fi

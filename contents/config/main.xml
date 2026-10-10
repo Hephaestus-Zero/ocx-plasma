@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+  <group name="General">
+    <!-- Command used to call opencodex (may contain arguments). -->
+    <entry name="ocxCommand" type="String"><default>ocx</default></entry>
+    <!-- Seconds between refreshes; the collector cache is shared by all widget instances. -->
+    <entry name="refreshSeconds" type="Int"><default>60</default></entry>
+    <!-- How many pools (first in the user's order) get a ring in the panel. -->
+    <entry name="panelRings" type="Int"><default>1</default></entry>
+    <!-- Providers never shown. These are API-key providers without a quota window. -->
+    <entry name="hiddenProviders" type="String"><default>deepseek,kimi,openrouter</default></entry>
+    <!-- Pool keys (provider or provider:plan) in the user's drag order; unknown pools follow. -->
+    <entry name="poolOrder" type="String"><default></default></entry>
+    <!-- Remaining % thresholds for the warn/crit ring colours. -->
+    <entry name="warnPercent" type="Int"><default>25</default></entry>
+    <entry name="critPercent" type="Int"><default>10</default></entry>
+  </group>
+</kcfg>

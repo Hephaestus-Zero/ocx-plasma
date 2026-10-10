@@ -1,0 +1,17 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Id": "io.github.hephaestuszero.ocxplasma",
+        "Name": "OCX Quota",
+        "Description": "Remaining opencodex quota per subscription pool",
+        "Icon": "speedometer",
+        "Category": "System Information",
+        "License": "MIT",
+        "Version": "0.1.0",
+        "Authors": [{ "Name": "Hephaestus-Zero" }],
+        "Website": "https://github.com/Hephaestus-Zero/ocx-plasma",
+        "EnabledByDefault": true,
+        "FormFactors": ["desktop", "panel"]
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

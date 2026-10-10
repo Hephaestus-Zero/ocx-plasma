@@ -1,0 +1,110 @@
+# Turkish translations for the OCX Quota Plasma widget.
+msgid ""
+msgstr ""
+"Project-Id-Version: ocx-plasma 0.1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/Hephaestus-Zero/ocx-plasma/issues\n"
+"POT-Creation-Date: 2026-01-01 00:00+0000\n"
+"PO-Revision-Date: 2026-01-01 00:00+0000\n"
+"Last-Translator: Hephaestus-Zero\n"
+"Language-Team: Turkish\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "General"
+msgstr "Genel"
+
+msgid "Refresh now"
+msgstr "Şimdi yenile"
+
+msgid "Reset order"
+msgstr "Sıralamayı sıfırla"
+
+msgid "Quotas"
+msgstr "Kotalar"
+
+msgid "error"
+msgstr "hata"
+
+msgid "offline · %1"
+msgstr "çevrimdışı · %1"
+
+msgid "Loading…"
+msgstr "Yükleniyor…"
+
+msgid "loading…"
+msgstr "yükleniyor…"
+
+msgid "No accounts found. Add one with 'ocx account add', or unhide providers in the settings."
+msgstr "Hesap bulunamadı. 'ocx account add' ile hesap ekleyin ya da ayarlardan gizli sağlayıcıları açın."
+
+msgid "no quota info"
+msgstr "kota bilgisi yok"
+
+msgid "paused"
+msgstr "durduruldu"
+
+msgid "5 hours"
+msgstr "5 saat"
+
+msgid "Week"
+msgstr "Hafta"
+
+msgid "Month"
+msgstr "Ay"
+
+msgid "Day"
+msgstr "Gün"
+
+msgid "Credits"
+msgstr "Kredi"
+
+msgid "now"
+msgstr "şimdi"
+
+msgid "%1 min"
+msgstr "%1 dk"
+
+msgid "%1 h %2 min"
+msgstr "%1 sa %2 dk"
+
+msgid "%1 h"
+msgstr "%1 sa"
+
+msgid "%1 d"
+msgstr "%1 gün"
+
+msgid "just now"
+msgstr "az önce"
+
+msgid "%1 min ago"
+msgstr "%1 dk önce"
+
+msgid "could not read quota data"
+msgstr "kota verisi okunamadı"
+
+msgid "invalid quota data: %1"
+msgstr "geçersiz kota verisi: %1"
+
+msgid "opencodex command:"
+msgstr "opencodex komutu:"
+
+msgid "Refresh interval (s):"
+msgstr "Yenileme aralığı (sn):"
+
+msgid "Panel rings:"
+msgstr "Panel halkaları:"
+
+msgid "Hidden providers:"
+msgstr "Gizli sağlayıcılar:"
+
+msgid "Comma-separated provider ids. The defaults are API-key providers without a quota window."
+msgstr "Virgülle ayrılmış sağlayıcı kimlikleri. Varsayılanlar kota penceresi olmayan API anahtarı sağlayıcılarıdır."
+
+msgid "Warn below (%):"
+msgstr "Uyarı eşiği (%):"
+
+msgid "Critical below (%):"
+msgstr "Kritik eşik (%):"

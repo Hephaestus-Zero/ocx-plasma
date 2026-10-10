@@ -1,0 +1,4 @@
+*.plasmoid
+__pycache__/
+*.pyc
+contents/locale/
